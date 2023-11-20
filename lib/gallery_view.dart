@@ -7,7 +7,7 @@ import 'package:google_mlkit_commons/google_mlkit_commons.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'utils.dart';
+import 'AI detector/utils.dart';
 
 class GalleryView extends StatefulWidget {
   GalleryView(
@@ -33,6 +33,7 @@ class _GalleryViewState extends State<GalleryView> {
   File? _image;
   String? _path;
   ImagePicker? _imagePicker;
+  String title = "";
 
   @override
   void initState() {
@@ -97,14 +98,37 @@ class _GalleryViewState extends State<GalleryView> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Text(
-              //     widget.text ?? ''),
-              Text("number of recognized texts: ${widget.textBlock.length.toString()}"),
+              // Text("number of recognized texts: ${widget.textBlock.length.toString()}"),
+              if (widget.textBlock != null)
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text("Please Select the number of Your Water Meter"),
+                    DropdownMenu<String>(
+                      initialSelection:  (widget.textBlock!.isNotEmpty) ? widget.textBlock?.first : "Nothing",
+                      onSelected: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          widget.textBlock?.first = value!;
+                          title = value!;
+                        });
+                      },
+                      dropdownMenuEntries: widget.textBlock!.map<DropdownMenuEntry<String>>((String value) {
+                        return DropdownMenuEntry<String>(
+                            value: value,
+                            label: value
+
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ResultPage(listRecognized: widget.textBlock,)),
+                      MaterialPageRoute(builder: (context) => ResultPage(listRecognized: widget.textBlock,waterMeter: title,image: _image!,)),
                     );
                   },
                   child: const Text("Data Result"),

@@ -1,5 +1,6 @@
+import 'package:felix_watermeter_app/bottom_bar.dart';
 import 'package:felix_watermeter_app/firebase_options.dart';
-import 'package:felix_watermeter_app/text-detector.dart';
+import 'package:felix_watermeter_app/AI%20detector/text-detector.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: "title"),
+      //home: const MyHomePage(title: "title"),
+      home: const BottomNavigationBarControl(),
     );
   }
 }
