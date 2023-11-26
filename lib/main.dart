@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Water Meter App'),
         centerTitle: true,
         elevation: 0,
+        automaticallyImplyLeading: false,
       ),
       body: const SafeArea(
         child: Center(
