@@ -2,6 +2,7 @@ import 'package:felix_watermeter_app/Daily_Record/daily_record.dart';
 import 'package:felix_watermeter_app/bottom_bar.dart';
 import 'package:felix_watermeter_app/firebase_options.dart';
 import 'package:felix_watermeter_app/AI%20detector/text-detector.dart';
+import 'package:felix_watermeter_app/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       //home: const MyHomePage(title: "title"),
-      home: const BottomNavigationBarControl(),
+      home: const SplashScreen(),
     );
   }
 }

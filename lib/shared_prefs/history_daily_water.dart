@@ -27,13 +27,14 @@ class _HistoryDailyWaterPageState extends State<HistoryDailyWaterPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List dates = [];
     //var formatter = DateFormat('yyyy-MM-dd hh:mm a');
-    print(prefs.containsKey('date'));
+    // print(prefs.containsKey('date'));
     if (prefs.containsKey('date')) {
       dates = prefs.getStringList('date')!;
       for (var date in dates) {
         if (prefs.getString(date + '_waterDaily') == null) {
-          break;
+          continue;
         }
+        print(prefs.getString(date + '_waterDaily'));
         _waterDaily[date] = prefs.getString(date + '_waterDaily');
       }
       setState(() {});

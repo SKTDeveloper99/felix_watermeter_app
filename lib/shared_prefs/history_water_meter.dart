@@ -29,6 +29,9 @@ class _HistoryWaterMeterPageState extends State<HistoryWaterMeterPage> {
     if (prefs.containsKey('date')) {
       dates = prefs.getStringList('date')!;
       for (var date in dates) {
+        if (prefs.getString(date + '_image') == null) {
+          continue;
+        }
         _image[date] = prefs.getString(date + '_image');
         _waterMeter[date] = prefs.getString(date + '_waterMeter');
       }
