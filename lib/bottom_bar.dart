@@ -1,8 +1,6 @@
-
 import 'package:felix_watermeter_app/main.dart';
 import 'package:felix_watermeter_app/shared_prefs/history_page.dart';
 import 'package:flutter/material.dart';
-
 
 
 class BottomNavigationBarControl extends StatefulWidget {
@@ -43,7 +41,7 @@ class _BottomNavigationBarControlState
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Business',
+            label: 'History',
           ),
         ],
         currentIndex: _selectedIndex,

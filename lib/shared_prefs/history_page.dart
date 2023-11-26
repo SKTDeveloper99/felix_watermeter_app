@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:felix_watermeter_app/shared_prefs/history_daily_water.dart';
+import 'package:felix_watermeter_app/shared_prefs/history_water_meter.dart';
 import 'package:felix_watermeter_app/shared_prefs/specific_past_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,102 +16,61 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  Map _image = {};
-  Map _waterMeter = {};
+  int _selectedIndex = 0;
 
-  void initState() {
-    _loadHistory();
-  }
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static  final List<Widget> _widgetOptions = <Widget>[
+    HistoryWaterMeterPage(),
+    HistoryDailyWaterPage(),
+  ];
 
-  _loadHistory() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List dates = [];
-    print(prefs.containsKey('date'));
-    if (prefs.containsKey('date')) {
-      dates = prefs.getStringList('date')!;
-      for (var date in dates) {
-        _image[date] = prefs.getString(date + '_image');
-        _waterMeter[date] = prefs.getString(date + '_waterMeter');
-      }
-      print(_image.keys);
-      setState(() {});
-    }
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color.fromRGBO(213,212,249, 1),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30.0),
-            bottomRight: Radius.circular(30.0),
-          ),
-        ),
-        toolbarHeight: 100,
-        // flexibleSpace: Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Center(
-        //       child: Container(
-        //         height: 85,
-        //         width: 100,
-        //         decoration: const BoxDecoration(
-        //           image: DecorationImage(
-        //             image: AssetImage("assets/file-history.png"),
-        //             fit: BoxFit.fitHeight,
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
-      ),
-      body: _image.isNotEmpty
-          ? ListView.builder(
-          padding: const EdgeInsets.all(8),
-          physics: const ScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: _image.length,
-          itemBuilder: (BuildContext context, int index) {
-            String date = _image.keys.elementAt(index);
 
-            return Card(
-                color: const Color.fromRGBO(215,236,209,1),
-                child: ListTile(
-                  title: Text(
-                    date,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.play_circle_fill_outlined,
-                        color: Color.fromRGBO(62, 0, 31, 1)),
-                    tooltip: 'Show Images',
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => ImagePage(
-                                imageTaken: _image[date],
-                                waterMeter: _waterMeter[date], title: date,
-                              )));
-                    },
-                  ),
-                ));
-          })
-          : const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      ),
+      body: Center(
+        child: _widgetOptions[_selectedIndex],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
           children: [
-            Text(
-              'No historical water meter are available',
-              style: TextStyle(fontSize: 30),
-              textAlign: TextAlign.center,
-            )
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Water Meter Record'),
+              selected: _selectedIndex == 0,
+              onTap: () {
+                // Update the state of the app
+                _onItemTapped(0);
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Daily Water Estimate'),
+              selected: _selectedIndex == 1,
+              onTap: () {
+                // Update the state of the app
+                _onItemTapped(1);
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
           ],
         ),
       ),

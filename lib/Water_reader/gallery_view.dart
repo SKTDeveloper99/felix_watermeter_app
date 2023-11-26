@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:felix_watermeter_app/result_page.dart';
+import 'package:felix_watermeter_app/Water_reader/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'AI detector/utils.dart';
+import '../AI detector/utils.dart';
 
 class GalleryView extends StatefulWidget {
   GalleryView(

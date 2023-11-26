@@ -4,7 +4,7 @@ import 'package:google_mlkit_commons/google_mlkit_commons.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 
 import 'camera_view.dart';
-import '../gallery_view.dart';
+import '../Water_reader/gallery_view.dart';
 
 enum DetectorViewMode { liveFeed, gallery }
 

@@ -1,3 +1,4 @@
+import 'package:felix_watermeter_app/Daily_Record/daily_record.dart';
 import 'package:felix_watermeter_app/bottom_bar.dart';
 import 'package:felix_watermeter_app/firebase_options.dart';
 import 'package:felix_watermeter_app/AI%20detector/text-detector.dart';
@@ -64,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     title: Text('Water meter App'),
                     children: [
                       CustomCard('Water meter setup', TextRecognizerView()),
+                      CustomCard('Daily Water Estimate', DailyRecordPage()),
                     ],
                   ),
                   SizedBox(
